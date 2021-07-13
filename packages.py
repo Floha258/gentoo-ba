@@ -19,6 +19,9 @@ try:
 		writer = csv.writer(csvfile)
 		writer.writerow(csv_columns)
 		for package, flags in stats.items():
-			writer.writerow([package, len(flags), flags])
+			clean_flags = list(set(flags))
+			if clean_flags == ['']:
+				clean_flags = []
+			writer.writerow([package, len(clean_flags), clean_flags])
 except IOError:
 	print("I/O error")
