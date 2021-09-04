@@ -22,6 +22,6 @@ try:
 			clean_flags = list(set(flags))
 			if clean_flags == ['']:
 				clean_flags = []
-			writer.writerow([package, len(clean_flags), clean_flags])
+			writer.writerow([package, len(clean_flags), *clean_flags])
 except IOError:
 	print("I/O error")
