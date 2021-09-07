@@ -1,19 +1,21 @@
 import csv
 
 try:
-    with open("data - data (2).csv", "r") as csvfile:
+    with open("data.csv", "r") as csvfile:
         reader = csv.reader(csvfile)
         line_count = 0
         sets = dict()
-        for row in reader:
+        all_rows = []
+        for csvrow in reader:
+            all_rows.append(csvrow)
+        for row in all_rows:
             if line_count != 0:  # Ignore header
                 set1 = set()
                 if len(row) > 2:
                     for e in row[2:]:
-                        print("Row: ", row[2:])
                         set1.add(e)
                 compare_count = line_count + 1  # we want to compare each row only once and not with itself
-                for comparing_row in reader:
+                for comparing_row in all_rows[compare_count:]:
                     if compare_count > line_count:
                         set2 = set()
                         if len(comparing_row) > 2:
