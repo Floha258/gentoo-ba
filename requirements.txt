@@ -1,0 +1,7 @@
+gentoolkit==0.5.1
+matplotlib==3.4.2
+numpy==1.21.0
+pandas==1.3.0
+portage==3.0.20
+scipy==1.7.0
+
