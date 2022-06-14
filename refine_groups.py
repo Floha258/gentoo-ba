@@ -39,7 +39,7 @@ for i, group in enumerate(all_groups):
         diff = len((group[0] - comparing_group[0])) + len((comparing_group[0] - group[0]))
         diffs.append(diff)
         # this will error if it's the last group in the list
-    if i != len(all_groups):
+    if i != len(all_groups) and diffs != []:
         ind = diffs.index(min(diffs))
         min_diff_group = all_groups[i + 1 + ind]
         merge = group[0].union(min_diff_group[0])

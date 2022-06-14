@@ -23,7 +23,7 @@ try:
         print(sorted_keys)
         dict2 = {}
         for i in sorted_keys:
-            dict2[i] = dict[i]
+            dict2[int(i)] = dict[i]
         dict = dict2
         print(dict)
 
@@ -39,9 +39,9 @@ y = list(dict2.values())
 # f2 = interpolate.interp1d(x, y, kind='cubic')
 
 # plt.plot(x, y, 'o', xnew, f1(xnew), '-', xnew, f2(xnew), '--')
-plt.plot(x, y, '-')
+plt.plot(x, y, 'o')
+ax = plt.gca()
+# ax.xaxis.set_tick_params(width=100)
 # plt.legend(['data', 'linear', 'cubic','nearest'], loc = 'best')
-plt.xticks(ticks=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200],
-           labels=[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200], rotation=45)
 #plt.semilogy()
 plt.savefig("plot.jpg")
