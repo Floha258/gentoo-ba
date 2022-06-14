@@ -2,9 +2,10 @@ import graphviz
 import csv
 import itertools
 
-graph = graphviz.Graph()
+graph = graphviz.Graph(name='flag-relation', directory='graphviz-output')
 graphNodes = []
 graphEdges = {}
+limit = 50
 
 try:
     with open("out2.csv", "r") as file:
@@ -16,6 +17,7 @@ try:
                 for flag1, flag2 in itertools.combinations(flags, 2):
                     if flag1 not in graphNodes:
                         graphNodes += [flag1]
+
                     if flag2 not in graphNodes:
                         graphNodes += [flag2]
                     if (flag1, flag2) not in graphEdges:
@@ -31,13 +33,29 @@ try:
 except IOError:
     "could not open file out2.csv"
 
-for node in graphNodes:
-    graph.node(node)
+# for node in cleanedNodes:
+#   graph.node(node)
+
+# print('nodes added')
+
+cleanedNodes = []
 
 for edge, weight in graphEdges.items():
-    graph.edge(edge[0], edge[1], label=str(weight))
+    if weight >= limit:
+        if edge[0] not in cleanedNodes:
+            graph.node(edge[0])
+            cleanedNodes += [edge[0]]
+        if edge[1] not in cleanedNodes:
+            graph.node(edge[1])
+            cleanedNodes += [edge[1]]
+        graph.edge(edge[0], edge[1], label=str(weight))  # , label=str(weight)
 
-graph.save(filename="graph.gv")
+print('edges added')
 
-print(graphNodes)
-print(graphEdges)
+filename = f"graph_limit{limit}_labeled_cleaned.gv"
+graph.save(filename=filename)
+# graph.render(renderer='dot', filename='graph.png')
+# graph.render(renderer='dot', outfile='graph.svg').replace('\\', '/')
+
+# print(graphNodes)
+# print(graphEdges)
