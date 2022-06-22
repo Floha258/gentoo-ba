@@ -1,4 +1,6 @@
 import csv
+import numpy as np
+from matplotlib import pyplot as plt
 
 flagsPerPackage = dict()
 packagesPerFlags = dict()
@@ -60,6 +62,42 @@ for flag in sortedFlags:
 for package in sortedPackages:
     totalPackages += int(package[1])
 
-print("\nOn average a flag occurs in", totalFlags/len(flagsPerPackage), "packages")
-print("On average a package has", totalPackages/len(packagesPerFlags), "flags\n")
+print("\nOn average a flag occurs in", totalFlags / len(flagsPerPackage), "packages")
+print("On average a package has", totalPackages / len(packagesPerFlags), "flags\n")
 print("Analysed", len(sortedPackages), "packages with", len(sortedFlags), "useflags")
+
+
+def gini(stats):
+    n = len(stats)
+    coef = 2.0 / n
+    const = (1.0 + n) / n
+    weighted_sum = 0
+    for j, yj in enumerate(stats):
+        weighted_sum += (j + i) * yj
+    arrsum = 0
+    for j in stats:
+        arrsum += j
+    return coef * weighted_sum / arrsum - const
+
+
+arr = []
+
+for p in sortedPackages:
+    arr += [int(p[1])]
+
+arr.sort()
+
+print("Gini Coefficient: ", gini(arr))
+
+X = np.array(arr)
+X_lorenz = X.cumsum() / X.sum()
+X_lorenz = np.insert(X_lorenz, 0, 0)
+
+fig, ax = plt.subplots(figsize=[6, 6])
+# scatter plot of Lorenz curve
+ax.scatter(np.arange(X_lorenz.size) / (X_lorenz.size - 1), X_lorenz,
+           marker='o', color='red', s=10)
+# line plot of equality
+ax.plot([0, 1], [0, 1], color='k')
+
+plt.savefig("graphs/lorenzcurve.png")
