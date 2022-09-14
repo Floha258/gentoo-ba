@@ -38,5 +38,5 @@ fig = all_deps.plot(label='Distribution of Dependencies', logy=False, legend=Tru
 # plt.plot(x, y)
 # plt.yticks(ticks=[0, 100, 200, 300, 400, 500, 1072, 1560], labels=['0', '100', '200', '300', '400', '500', '1072', '1560'])
 plt.xticks([])
-fig.set_ylabel("Number of runtime dependencies")
+# fig.set_ylabel("Number of runtime dependencies")
 plt.savefig("plot_r_dep.png")
