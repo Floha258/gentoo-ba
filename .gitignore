@@ -1,0 +1,7 @@
+*.csv
+*.png
+graphviz-output/
+graphs
+*.svg
+*.gv
+*.jpg
